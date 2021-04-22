@@ -6,16 +6,9 @@
 #include <map>
 #include <algorithm>
 
-/*
-ѕод задачу создать репо, в котором в мастер ветку инитиал коммитом
-пушим VS проектные файлы, после этого выводим ветку, в которую делаем реализацию.
-ѕосле этого создаем пул реквест (PR) и кидаем мне.
-*/
-
-
-int findNonRepeatableNumber(std::vector<int>& nums) {
+std::pair<bool, int> findNonRepeatableNumber(std::vector<int>& nums) {
     bool repeatableFlag = false;
-    int foundNonRepeatableNumber = -999;
+    std::pair<bool, int> foundNonRepeatableNumber{};
     for (int i = 0; i < nums.size(); i++) {
         repeatableFlag = true;
         for (int j = 0; j < nums.size(); j++) {
@@ -29,35 +22,33 @@ int findNonRepeatableNumber(std::vector<int>& nums) {
         }
 
         if (repeatableFlag == 1) {
-            foundNonRepeatableNumber = nums[i];
+            foundNonRepeatableNumber = { repeatableFlag, nums[i] };
             break;
         }
     }
-    if (repeatableFlag == false) {
-        throw std::runtime_error("There is no non repeatable number");
-    }
-
     return foundNonRepeatableNumber;
 }
 
 int main()
 {
     std::vector<int> numbers{ 7, 9, 1, 7, 8, 0, 9, 1, 8 };
-    std::vector<int> numbersWithoutRepeatableNumber { 7, 9, 1, 7, 8, 9, 1, 8 };
+    std::vector<int> numbersWithoutRepeatableNumber{ 7, 9, 1, 7, 8, 9, 1, 8 };
 
-    try {
-        std::cout << "Non repeatable number: " << findNonRepeatableNumber(numbers) << std::endl;
+    std::pair<bool, int> nonRepeatableNumber = findNonRepeatableNumber(numbers);
+    std::pair<bool, int> noNonRepeatableNumber = 
+        findNonRepeatableNumber(numbersWithoutRepeatableNumber);
+
+    if (nonRepeatableNumber.first) {
+        std::cout << "Non repeatable number: " << nonRepeatableNumber.second << std::endl;
     }
-    catch (std::exception& ex) {
-        std::cout << ex.what() << std::endl;
+    else {
+        std::cout << "There is no non repeatable number: " << std::endl;
     }
 
-
-    try {
-        std::cout << "Non repeatable number: " << 
-            findNonRepeatableNumber(numbersWithoutRepeatableNumber) << std::endl;
+    if (noNonRepeatableNumber.first) {
+        std::cout << "Non repeatable number: " << noNonRepeatableNumber.second << std::endl;
     }
-    catch (std::exception& ex) {
-        std::cout << ex.what() << std::endl;
+    else {
+        std::cout << "There is no non repeatable number: " << std::endl;
     }
 }
