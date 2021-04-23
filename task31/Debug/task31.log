@@ -1,4 +1,0 @@
-﻿  task31.cpp
-C:\Users\yestS\C++_git\NonRepeatableNumber\task31\task31.cpp(12,23): warning C4018: '<': signed/unsigned mismatch
-C:\Users\yestS\C++_git\NonRepeatableNumber\task31\task31.cpp(14,27): warning C4018: '<': signed/unsigned mismatch
-  task31.vcxproj -> C:\Users\yestS\C++_git\NonRepeatableNumber\Debug\task31.exe
