@@ -29,6 +29,20 @@ std::pair<bool, int> findNonRepeatableNumber(std::vector<int>& nums) {
     return foundNonRepeatableNumber;
 }
 
+unsigned nCr(unsigned n, unsigned k) // combination calculation
+{
+    if (k > n) return 0;
+    if (k * 2 > n) k = n - k;
+    if (k == 0) return 1;
+
+    int result = n;
+    for (int i = 2; i <= k; ++i) {
+        result *= (n - i + 1);
+        result /= i;
+    }
+    return result;
+}
+
 int main()
 {
     std::vector<int> numbers{ 7, 9, 1, 7, 8, 0, 9, 1, 8 };
@@ -51,4 +65,16 @@ int main()
     else {
         std::cout << "There is no non repeatable number: " << std::endl;
     }
+
+    int n = 10;
+    int counterTo = ((2 * n) + 1);
+    int counterFrom = n + 1;
+    int result = 0;
+    for(int a = counterFrom; a < counterTo; a++) {
+        int temp = (((2 * a) - (2 * n) - 1) / counterTo);
+        int combination = nCr(counterTo, counterFrom);
+        result += (temp*combination);
+    }
+    std::cout << result << std::endl;
 }
+
